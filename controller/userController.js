@@ -19,6 +19,27 @@ export const getUserById = async (req, res) => {
   }
 };
 
+
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = Users.findOne({ email });
+    if (user) {
+      if (user.password == password) {
+        res.status(200).json(user);
+      } else {
+        res.status(400).json({ message: "wrong password" });
+      }
+    } else {
+      res.status(400).json({ message: "user not found" });
+    }
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+
+
 export const createUser = async (req, res) => {
   try {
     const { name, email, password, phone, address } = req.body;
