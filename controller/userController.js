@@ -24,7 +24,7 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = Users.findOne({ email });
+    const user = await Users.findOne({ email });
     if (user) {
       if (user.password == password) {
         res.status(200).json(user);
