@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const userSchema = mongoose.Schema({
     name: {
         type: String,
@@ -14,6 +13,10 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    phone: {
+        type: Number,
+        required: true
+    },
     isAdmin: {
         type: Boolean,
         required: true,
@@ -21,12 +24,10 @@ const userSchema = mongoose.Schema({
     },
     address: {
         type: String,
-        required: true,
+        required: true
     }
+});
 
-})
+const Users = mongoose.model('users', userSchema);
 
-const Users = mongoose.model('users', userSchema)
-
-export default Users
-
+export default Users;
