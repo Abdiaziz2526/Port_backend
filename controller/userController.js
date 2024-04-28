@@ -24,15 +24,9 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    console.log('Email:', email);
-    console.log('Password:', password);
-
-    const user = await Users.findOne({ email });
-
-    console.log('Retrieved User:', user);
-
+    const user =await Users.findOne({ email });
     if (user) {
-      if (user.password === password) {
+      if (user.password == password) {
         res.status(200).json(user);
       } else {
         res.status(400).json({ message: "wrong password" });
@@ -41,11 +35,9 @@ export const login = async (req, res) => {
       res.status(400).json({ message: "user not found" });
     }
   } catch (e) {
-    console.error('Error:', e);
     res.status(500).json({ error: e.message });
   }
 };
-
 
 
 export const createUser = async (req, res) => {
