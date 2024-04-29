@@ -53,3 +53,16 @@ export const getTaxById = async (req, res) => {
     res.status(500).json({ error: 'Failed to get tax by ID', message: error.message });
   }
 };
+
+// Get all taxes
+export const getAllTaxes = async (req, res) => {
+  try {
+    const allTaxes = await Taxes.find();
+    res.json(allTaxes);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to get all taxes', message: error.message });
+  }
+};
+
+
+
