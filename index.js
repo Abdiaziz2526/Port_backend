@@ -1,7 +1,7 @@
 import express from 'express';
 import connectToDb from './Configdb/database.js';
 import userRoutes from './routes/userRoutes.js';
-import taxesRoutes from './routes/taxesRoutes.js'
+import taxesRoutes from './routes/taxesRoutes..js'
 
 import dotenv from 'dotenv';
 
