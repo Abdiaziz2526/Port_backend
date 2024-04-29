@@ -1,10 +1,9 @@
-import  express  from "express";
-const mongoose = require('mongoose');
+import express from 'express';
+import Taxes from '../models/taxesModel.js';
 
-const Taxes = require('./taxesModel');
 
 // Create a new tax
-exports.createTax = async (req, res) => {
+export const createTax = async (req, res) => {
   try {
     const newTax = await Taxes.create(req.body);
     res.status(201).json(newTax);
@@ -14,7 +13,7 @@ exports.createTax = async (req, res) => {
 };
 
 // Update an existing tax
-exports.updateTax = async (req, res) => {
+export const updateTax = async (req, res) => {
   try {
     const { id } = req.params;
     const updatedTax = await Taxes.findByIdAndUpdate(id, req.body, { new: true });
@@ -28,7 +27,7 @@ exports.updateTax = async (req, res) => {
 };
 
 // Delete an existing tax
-exports.deleteTax = async (req, res) => {
+export const deleteTax = async (req, res) => {
   try {
     const { id } = req.params;
     const deletedTax = await Taxes.findByIdAndDelete(id);
@@ -38,5 +37,19 @@ exports.deleteTax = async (req, res) => {
     res.status(204).end();
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete tax', message: error.message });
+  }
+};
+
+// Get tax by ID
+export const getTaxById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const tax = await Taxes.findById(id);
+    if (!tax) {
+      return res.status(404).json({ error: 'Tax not found' });
+    }
+    res.json(tax);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to get tax by ID', message: error.message });
   }
 };

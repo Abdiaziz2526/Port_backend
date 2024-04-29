@@ -1,9 +1,9 @@
-const express = require('express');
-const taxesController = require('./taxesController');
+import express from 'express';
+import { createTax, updateTax, getTaxById, deleteTax } from '../controller/TaxesController.js';
 
 const router = express.Router();
-router.post('/', taxesController.createTax);
-router.put('/:id', taxesController.updateTax);
-router.delete('/:id', taxesController.deleteTax);
 
-module.exports = router;
+router.route('/').get(getTaxById).post(createTax);
+router.route('/:id').get(getTaxById).put(updateTax).delete(deleteTax);
+
+export default router;
