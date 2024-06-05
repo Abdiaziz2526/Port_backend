@@ -12,12 +12,17 @@ const reportSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  createdDate: { 
-    type: Date, 
-    default: Date.now },
+  taxes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Taxes",
+    required: true,
+  }],
+ 
   isResolved: { 
     type: Boolean, 
     default: false },
+},{
+  timestamps:true
 });
 
 const Report = mongoose.model("Report", reportSchema);

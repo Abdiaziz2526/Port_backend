@@ -3,7 +3,15 @@ import Users from "../models/usersModel.js";
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await Users.find();
+    const keyword = req.query.keyword
+      ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+      : {};
+    const users = await Users.find({...keyword});
     res.status(200).json(users);
   } catch (e) {
     res.status(500).json({ error: e.message });
