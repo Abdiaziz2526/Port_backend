@@ -3,6 +3,7 @@ import connectToDb from './Configdb/database.js';
 import userRoutes from './routes/userRoutes.js';
 import businessRoutes from './routes/businessRoutes.js';
 import productsRoutes from './routes/productsRoutes.js';
+import taxationRoutes from './routes/taxationRoutes.js';
 
 import dotenv from 'dotenv';
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/business', businessRoutes);
 app.use('/api/products', productsRoutes);
+app.use('/api/taxations', taxationRoutes);
 
 
 app.listen(port, () => {

@@ -1,32 +1,32 @@
 import mongoose from "mongoose";
 
-const taxationSchema = mongoose.Schema({
+const taxationSchema = mongoose.Schema(
+  {
     business: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "business",
-        required: true,
-      },
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users",
-        required: true,
-      },
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "products",
-        required: true,
-      },
-      taxAmount: {
-        type: Number,
-        required: true,
-      },
-  
-},
-{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "business",
+      required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+      required: true,
+    },
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "products",
+      required: true,
+    },
+    taxAmount: {
+      type: Number,
+      required: true,
+    },
+  },
+  {
     timestamps: true,
-}
+  }
 );
 
-const TaxRate = mongoose.model("TaxRate", taxRateSchema);
+const Taxation = mongoose.model("taxations", taxationSchema);
 
-export default TaxRate;
+export default Taxation;
