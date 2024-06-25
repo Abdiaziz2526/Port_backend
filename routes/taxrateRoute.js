@@ -1,5 +1,6 @@
 import express from 'express';
 import {getAllRate, getRateById,registerNewRate,updateRate,deleteRate,} from '../controllers/taxRateController.js';
+import { admin, protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 router.route('/')
@@ -8,6 +9,6 @@ router.route('/')
 router.route('/:id')
   .get(getRateById)
   .put(updateRate)
-  .delete(deleteRate);
+  .delete(protect, admin, deleteRate);
 
 export default router;

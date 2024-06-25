@@ -26,35 +26,12 @@ export const getProductById = async (req, res) => {
 // Register a new product
 export const registerNewProduct = async (req, res) => {
     try {
-        // const { name, qty, price, totalPrice, user } = req.body;
-            const { business } = req.body;
-        // const product = new Products({ name, qty, price, totalPrice, user });
+        const { name, qty, price, totalPrice, user } = req.body;
+        const product = new Products({ name, qty, price, totalPrice, user });
 
-        // await product.save();
-        // res.status(201).json(product);
+        await product.save();
+        res.status(201).json(product);
 
-        
-
-        const products = [];
-        for (let i = 1; i <= 20; i++) {
-            const qty = i * 2; // Example quantity
-            const price = i * 50; // Example price
-            const totalPrice = qty * price;
-            
-            const product = {
-                name: `Product ${i}`,
-                qty: qty, // Example quantity
-                price: price, // Example price
-                totalPrice: totalPrice, // Example total price
-                isTaxed: false, // Alternate between taxed and not taxed
-                isPaid: false, // Alternate between paid and not paid
-                business: business,
-            };
-            products.push(product);
-        }
-
-        await Products.insertMany(products);
-        console.log('20 products created');
 
     } catch (error) {
         res.status(500).json({ message: error.message });

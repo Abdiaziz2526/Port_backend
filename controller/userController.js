@@ -1,5 +1,5 @@
 import Users from "../models/usersModel.js";
-
+import generateToken from "../utils/generateToken.js";
 
 export const getUsers = async (req, res) => {
   try {
@@ -35,7 +35,15 @@ export const login = async (req, res) => {
     const user =await Users.findOne({ email });
     if (user) {
       if (user.password == password) {
-        res.status(200).json(user);
+        res.status(200).json({
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin,
+          phone: user.phone,
+          address: user.address,
+          token:generateToken(user._id),
+        });
       } else {
         res.status(400).json({ message: "wrong password" });
       }
