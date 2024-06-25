@@ -27,7 +27,11 @@ const taxPaymentSchema = new mongoose.Schema({
     enum: ["pending", "completed", "failed"],
     default: "pending",
   },
-});
+},
+{
+  timestamps: true,
+}
+);
 
 const TaxPayment = mongoose.model("taxPayment", taxPaymentSchema);
 
