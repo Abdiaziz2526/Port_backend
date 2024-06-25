@@ -18,7 +18,7 @@ const productSchema = mongoose.Schema({
         required: true,
     },
     isTaxed: {
-        type: Number,
+        type: Boolean,
         required: true,
         default:false,
     },
