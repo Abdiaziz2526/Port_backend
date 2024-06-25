@@ -1,27 +1,27 @@
 import TaxRate from '../models/TaxRate'; 
 
 
-export const createTaxRate = async (req, res) => {
+export const createTaxtion = async (req, res) => {
     try {
         const { business, user, product, taxAmount } = req.body;
-        const newTaxRate = new TaxRate({
+        const newTaxRate = new Taxtion({
             business,
             user,
             product,
             taxAmount
         });
 
-        const savedTaxRate = await newTaxRate.save();
-        res.status(201).json(savedTaxRate);
+        const savedTaxtion = await newTaxtion.save();
+        res.status(201).json(savedTaxtion);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
 
-export const getAllTaxRates = async (req, res) => {
+export const getAllTaxtion = async (req, res) => {
     try {
-        const taxRates = await TaxRate.find();
+        const taxRates = await Taxtion.find();
         res.status(200).json(taxRates);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -29,12 +29,12 @@ export const getAllTaxRates = async (req, res) => {
 };
 
 
-export const getTaxRateById = async (req, res) => {
+export const getTaxtionById = async (req, res) => {
     try {
         const { id } = req.params;
-        const taxRate = await TaxRate.findById(id);
-        if (!taxRate) {
-            return res.status(404).json({ message: 'Tax rate not found' });
+        const taxtion = await TaxRate.findById(id);
+        if (!taxtion) {
+            return res.status(404).json({ message: 'Taxtion not found' });
         }
         res.status(200).json(taxRate);
     } catch (error) {
@@ -42,38 +42,38 @@ export const getTaxRateById = async (req, res) => {
     }
 };
 
-export const updateTaxRateById = async (req, res) => {
+export const updateTaxtionById = async (req, res) => {
     try {
         const { id } = req.params;
         const { business, user, product, taxAmount } = req.body;
 
-        const updatedTaxRate = await TaxRate.findByIdAndUpdate(
+        const updateTaxtionById = await taxtion.findByIdAndUpdate(
             id,
             { business, user, product, taxAmount },
             { new: true }
         );
 
-        if (!updatedTaxRate) {
+        if (!updatedTaxtion) {
             return res.status(404).json({ message: 'Tax rate not found' });
         }
 
-        res.status(200).json(updatedTaxRate);
+        res.status(200).json(updatedTaxtion);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
 
-export const deleteTaxRateById = async (req, res) => {
+export const deleteTaxtionById = async (req, res) => {
     try {
         const { id } = req.params;
         const deletedTaxRate = await TaxRate.findByIdAndDelete(id);
 
-        if (!deletedTaxRate) {
-            return res.status(404).json({ message: 'Tax rate not found' });
+        if (!deletedTaxtion) {
+            return res.status(404).json({ message: 'Taxtion not found' });
         }
 
-        res.status(200).json({ message: 'Tax rate deleted successfully' });
+        res.status(200).json({ message: 'Taxtion deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
