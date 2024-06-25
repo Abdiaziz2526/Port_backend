@@ -25,29 +25,58 @@ export const getAllBusiness = async (req, res) => {
   
   export const registerNewBusiness = async (req, res) => {
     try {
-      const { name, email, password, logo, type, address, minIncome, maxIncome, taxIdentificationNumber } = req.body;
+      // const { name, email, password, logo, type, address, minIncome, maxIncome, taxIdentificationNumber } = req.body;
   
-      const isBusinessExists = await Business.findOne({ email });
+      // const isBusinessExists = await Business.findOne({ email });
   
-      if (isBusinessExists) {
-        return res.status(400).json({ message: "Business already exists" });
-      }
+      // if (isBusinessExists) {
+      //   return res.status(400).json({ message: "Business already exists" });
+      // }
   
-      const hashedPassword = await bcrypt.hash(password, 10);
+      // const hashedPassword = await bcrypt.hash(password, 10);
   
-      const newBusiness = await Business.create({
-        name,
-        email,
-        password: hashedPassword,
-        logo,
-        type,
-        address,
-        minIncome,
-        maxIncome,
-        taxIdentificationNumber,
-      });
+      // const newBusiness = await Business.create({
+      //   name,
+      //   email,
+      //   password: hashedPassword,
+      //   logo,
+      //   type,
+      //   address,
+      //   minIncome,
+      //   maxIncome,
+      //   taxIdentificationNumber,
+      // });
   
-      res.status(201).json(newBusiness);
+      // res.status(201).json(newBusiness);
+
+      const businessEntities = [];
+        for (let i = 1; i <= 10; i++) {
+            const businessEntity = {
+                name: `Business Entity ${i}`,
+                email: `entity${i}@example.com`,
+                password: `password${i}`,
+                logo: `https://example.com/logo${i}.png`,
+                type: "Limited Liability Company (LLC)",
+                address: {
+                    street: `Street ${i}`,
+                    city: `City ${i}`,
+                    state: `State ${i}`,
+                    zip: `0000${i}`,
+                    country: 'Somalia'
+                },
+                minIncome: 1000 * i,
+                maxIncome: 2000 * i,
+                taxIdentificationNumber: `TIN0000${i}`
+            };
+            businessEntities.push(businessEntity);
+        }
+
+        const business = await Business.insertMany(businessEntities);
+        if (business) {
+          res.json(business)
+        }
+
+
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

@@ -2,6 +2,7 @@ import express from 'express';
 import connectToDb from './Configdb/database.js';
 import userRoutes from './routes/userRoutes.js';
 import businessRoutes from './routes/businessRoutes.js';
+import productsRoutes from './routes/productsRoutes.js';
 
 import dotenv from 'dotenv';
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/api/users', userRoutes);
 app.use('/api/business', businessRoutes);
+app.use('/api/products', productsRoutes);
 
 
 app.listen(port, () => {

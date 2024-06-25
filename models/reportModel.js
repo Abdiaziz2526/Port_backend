@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 
 const reportSchema = new mongoose.Schema({
-  title: { 
-    type: String, 
-    required: true },
-  description: { 
-    type: String 
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
@@ -17,12 +18,13 @@ const reportSchema = new mongoose.Schema({
     ref: "Taxes",
     required: true,
   }],
- 
-  isResolved: { 
-    type: Boolean, 
-    default: false },
-},{
-  timestamps:true
+
+  isResolved: {
+    type: Boolean,
+    default: false
+  },
+}, {
+  timestamps: true
 });
 
 const Report = mongoose.model("Report", reportSchema);
