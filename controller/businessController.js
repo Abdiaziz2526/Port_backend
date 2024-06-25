@@ -1,5 +1,5 @@
 import Business from "../models/businessModel.js";
-
+import generateToken from "../utils/generateToken.js";
 
 export const getAllBusiness = async (req, res) => {
   try {
@@ -59,20 +59,31 @@ export const registerNewBusiness = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const business = await Business.findOne({ email });
 
+    const business = await Business.findOne({ email });
     if (!business) {
       return res.status(404).json({ message: 'Business not found' });
     } else {
-      
-      if (business.password != password) {
+
+      if (business.password == password) {
         return res.status(400).json({ message: 'Invalid password' });
       } else {
-        return res.status(200).json(business);
+        res.status(200).json({
+          _id: business._id,
+          name: business.name,
+          email: business.email,
+          password: business.password,
+          logo: business.logo,
+          type: business.type,
+          address: business.type,
+          minIncome: business.minIncome,
+          maxIncome: business.maxIncome,
+          taxIdentificationNumber: business.taxIdentificationNumber,
+          token: generateToken(business._id)
+        });
       }
-
-
     }
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

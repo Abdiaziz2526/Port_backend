@@ -10,6 +10,22 @@ export const getProducts = async (req, res) => {
     }
 };
 
+// Get all product
+export const getMyProducts = async (req, res) => {
+    try {
+        const products = await Products.findOne({ business: req.params.id });
+
+        if (products) {
+            return res.status(200).json(products);
+        }
+        else {
+            return res.status(404).json({ message: "No Products found" });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // Get product by ID
 export const getProductById = async (req, res) => {
     try {
@@ -59,9 +75,9 @@ export const updateProduct = async (req, res) => {
 // Delete a product
 export const deleteProduct = async (req, res) => {
     try {
-        const deletedTaxProduct = await Products.findByIdAndDelete(req.params.id);
-        if (!deletedTaxRate) {
-            return res.status(404).json({ message: 'Product rate not found' });
+        const deletedProduct = await Products.findByIdAndDelete(req.params.id);
+        if (!deletedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
         }
         res.status(200).json({ message: 'Product deleted successfully' });
     } catch (error) {
