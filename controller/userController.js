@@ -11,7 +11,7 @@ export const getUsers = async (req, res) => {
         },
       }
       : {};
-    const users = await Users.find({...keyword});
+    const users = await Users.find({ ...keyword });
     res.status(200).json(users);
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -21,7 +21,24 @@ export const getUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
   try {
     const user = await Users.findById(req.params.id);
-    res.status(200).json(user);
+
+    if (user) {
+       res.status(200).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        isAdmin: user.isAdmin,
+        phone: user.phone,
+        address: user.address,
+        token: req.params.token,
+  
+      });
+    }else{
+      res.status(400).json({ message: "user not found" });
+    }
+
+   
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -32,23 +49,24 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user =await Users.findOne({ email });
+    const user = await Users.findOne({ email });
     if (user) {
       if (user.password == password) {
         res.status(200).json({
           _id: user._id,
           name: user.name,
           email: user.email,
+          password: user.password,
           isAdmin: user.isAdmin,
           phone: user.phone,
           address: user.address,
-          token:generateToken(user._id),
+          token: generateToken(user._id),
         });
       } else {
         res.status(400).json({ message: "wrong password" });
       }
     } else {
-      res.status(400).json({ message: "user not found" });
+      res.status(404).json({ message: "user not found" });
     }
   } catch (e) {
     res.status(500).json({ error: e.message });
