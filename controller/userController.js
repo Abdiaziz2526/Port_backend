@@ -20,7 +20,7 @@ export const getUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
   try {
-    const user = await Users.findById(req.params.id, {token: req.params.token});
+    const user = await Users.findById(req.params.id);
 
     if (user) {
        res.status(200).json({
@@ -31,7 +31,7 @@ export const getUserById = async (req, res) => {
         isAdmin: user.isAdmin,
         phone: user.phone,
         address: user.address,
-        token: generateToken(user._id),
+        token: req.params.token,
   
       });
     }else{
