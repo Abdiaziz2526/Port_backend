@@ -20,19 +20,25 @@ export const getUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
   try {
-    const user = await Users.findById(req.params.id);
+    const user = await Users.findById(req.params.id, {token: req.params.token});
 
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      isAdmin: user.isAdmin,
-      phone: user.phone,
-      address: user.address,
-      token: generateToken(user._id),
+    if (user) {
+       res.status(200).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        isAdmin: user.isAdmin,
+        phone: user.phone,
+        address: user.address,
+        token: generateToken(user._id),
+  
+      });
+    }else{
+      res.status(400).json({ message: "user not found" });
+    }
 
-    });
+   
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -60,7 +66,7 @@ export const login = async (req, res) => {
         res.status(400).json({ message: "wrong password" });
       }
     } else {
-      res.status(400).json({ message: "user not found" });
+      res.status(404).json({ message: "user not found" });
     }
   } catch (e) {
     res.status(500).json({ error: e.message });
