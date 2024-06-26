@@ -4,6 +4,7 @@ import userRoutes from './routes/userRoutes.js';
 import businessRoutes from './routes/businessRoutes.js';
 import productsRoutes from './routes/productsRoutes.js';
 import taxationRoutes from './routes/taxationRoutes.js';
+import taxrateRoutes from './routes/taxrateRoute.js'
 
 import dotenv from 'dotenv';
 
@@ -18,6 +19,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/business', businessRoutes);
 app.use('/api/products', productsRoutes);
 app.use('/api/taxations', taxationRoutes);
+app.use('/api/taxRate', taxrateRoutes);
+
 
 
 app.listen(port, () => {
