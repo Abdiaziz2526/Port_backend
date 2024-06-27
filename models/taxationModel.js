@@ -21,6 +21,11 @@ const taxationSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    isPaid: {
+      type: Boolean,
+      required: true,
+      default:false
+  },
   },
   {
     timestamps: true,
