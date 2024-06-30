@@ -1,16 +1,15 @@
 import express from 'express';
-// import { getAllBusiness,getBusinessById,registerNewBusiness,login,updateBusinessProfile,deleteBusiness} from '../controllers/businessController.js';
 import { getAllBusiness, getBusinessById, registerNewBusiness, login, updateBusinessProfile, deleteBusiness } from '../controller/businessController.js';
+import { protect } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 router.route('/')
-  .get(getAllBusiness)
+  .get(protect, getAllBusiness)
   .post(registerNewBusiness);
-
+router.route('/:id/:token').get(protect, getBusinessById)
 router.route('/:id')
-  .get(getBusinessById)
-  .put(updateBusinessProfile)
-  .delete(deleteBusiness);
+  .put(protect, updateBusinessProfile)
+  .delete(protect, deleteBusiness);
 
 router.route('/login')
   .post(login);

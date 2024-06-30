@@ -2,12 +2,14 @@ import mongoose from "mongoose";
 
 
 const addressSchema = new mongoose.Schema({
-    street: String,
-    city: String,
-    state: String,
-    zip: String,
-    country: { type: String, default: 'Somalia' },
-  }, { _id: false });
+  street: String,
+  city: String,
+  state: String,
+  zip: String,
+  country: { type: String, default: 'Somalia' },
+}, { _id: false });
+
+
 const businessEntitySchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
@@ -19,7 +21,7 @@ const businessEntitySchema = new mongoose.Schema({
     required: true,
   },
   address: addressSchema,
-  minIncome:{ type: Number, required: true } ,
+  minIncome: { type: Number, required: true },
   maxIncome: { type: Number, required: true },
   taxIdentificationNumber: { type: String, required: true, unique: true },
 });

@@ -11,13 +11,26 @@ export const getAllBusiness = async (req, res) => {
 };
 
 export const getBusinessById = async (req, res) => {
-  const { id } = req.params;
   try {
-    const business = await Business.findById(id);
+    const business = await Business.findById(req.params.id);
     if (!business) {
       return res.status(404).json({ message: 'Business not found' });
+    } else {
+      res.status(200).json({
+        _id: business._id,
+        name: business.name,
+        email: business.email,
+        password: business.password,
+        logo: business.logo,
+        type: business.type,
+        address: business.type,
+        minIncome: business.minIncome,
+        maxIncome: business.maxIncome,
+        taxIdentificationNumber: business.taxIdentificationNumber,
+        token: req.params.token,
+      });
     }
-    res.status(200).json(business);
+
   } catch (error) {
     res.status(500).json({ message: 'Error retrieving business', error });
   }
@@ -25,31 +38,29 @@ export const getBusinessById = async (req, res) => {
 
 export const registerNewBusiness = async (req, res) => {
   try {
-    const { name, email, password, logo, type, address, minIncome, maxIncome, taxIdentificationNumber } = req.body;
+    const { name, email, password, type, address, minIncome, maxIncome, taxIdentificationNumber } = req.body;
 
     const isBusinessExists = await Business.findOne({ email });
 
     if (isBusinessExists) {
       return res.status(400).json({ message: "Business already exists" });
+    } else {
+
+      const newBusiness = await Business.create({
+        name,
+        email,
+        password,
+        type,
+        address,
+        minIncome,
+        maxIncome,
+        taxIdentificationNumber,
+
+      });
+
+      res.status(201).json(newBusiness);
+
     }
-
-    // const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newBusiness = await Business.create({
-      name,
-      email,
-      password,
-      logo,
-      type,
-      address,
-      minIncome,
-      maxIncome,
-      taxIdentificationNumber,
-    });
-
-    res.status(201).json(newBusiness);
-
-
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -65,7 +76,7 @@ export const login = async (req, res) => {
       return res.status(404).json({ message: 'Business not found' });
     } else {
 
-      if (business.password == password) {
+      if (business.password != password) {
         return res.status(400).json({ message: 'Invalid password' });
       } else {
         res.status(200).json({
