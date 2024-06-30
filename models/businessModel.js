@@ -9,7 +9,6 @@ const addressSchema = new mongoose.Schema({
   country: { type: String, default: 'Somalia' },
 }, { _id: false });
 
-
 const businessEntitySchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },

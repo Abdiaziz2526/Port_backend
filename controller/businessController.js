@@ -3,7 +3,7 @@ import generateToken from "../utils/generateToken.js";
 
 export const getAllBusiness = async (req, res) => {
   try {
-    const businesses = await Business.find();
+    const businesses = await Business.find().populate('address');
     res.status(200).json(businesses);
   } catch (error) {
     res.status(500).json({ message: 'Error retrieving businesses', error });
@@ -12,7 +12,7 @@ export const getAllBusiness = async (req, res) => {
 
 export const getBusinessById = async (req, res) => {
   try {
-    const business = await Business.findById(req.params.id);
+    const business = await Business.findById(req.params.id).populate('address');
     if (!business) {
       return res.status(404).json({ message: 'Business not found' });
     } else {
@@ -71,7 +71,7 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const business = await Business.findOne({ email });
+    const business = await Business.findOne({ email }).populate('address');
     if (!business) {
       return res.status(404).json({ message: 'Business not found' });
     } else {
@@ -105,7 +105,7 @@ export const updateBusinessProfile = async (req, res) => {
   try {
     const { name, email, password, logo, type, address, minIncome, maxIncome, taxIdentificationNumber } = req.body;
 
-    const business = await Business.findById(req.params.id);
+    const business = await Business.findById(req.params.id).populate('address');
     if (!business) {
       return res.status(404).json({ message: 'Business not found' });
     }
@@ -133,7 +133,7 @@ export const updateBusinessProfile = async (req, res) => {
 
 export const deleteBusiness = async (req, res) => {
   try {
-    const business = await Business.findByIdAndDelete(req.params.id);
+    const business = await Business.findByIdAndDelete(req.params.id).populate('address');
     if (!business) {
       return res.status(404).json({ message: 'Business not found' });
     }
