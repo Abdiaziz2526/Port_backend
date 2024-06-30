@@ -22,6 +22,7 @@ export const getBusinessById = async (req, res) => {
         email: business.email,
         password: business.password,
         type: business.type,
+        phone:business.phone,
         address: business.address,
         minIncome: business.minIncome,
         maxIncome: business.maxIncome,
@@ -37,7 +38,7 @@ export const getBusinessById = async (req, res) => {
 
 export const registerNewBusiness = async (req, res) => {
   try {
-    const { name, email, password, type, address, minIncome, maxIncome, taxIdentificationNumber } = req.body;
+    const { name, email, password, type, phone, address, minIncome, maxIncome, taxIdentificationNumber } = req.body;
 
     const isBusinessExists = await Business.findOne({ email });
 
@@ -50,6 +51,7 @@ export const registerNewBusiness = async (req, res) => {
         email,
         password,
         type,
+        phone,
         address,
         minIncome,
         maxIncome,
@@ -84,6 +86,7 @@ export const login = async (req, res) => {
           email: business.email,
           password: business.password,
           type: business.type,
+          phone: business.phone,
           address: business.address,
           minIncome: business.minIncome,
           maxIncome: business.maxIncome,
@@ -101,7 +104,7 @@ export const login = async (req, res) => {
 
 export const updateBusinessProfile = async (req, res) => {
   try {
-    const { name, email, password, logo, type, address, minIncome, maxIncome, taxIdentificationNumber } = req.body;
+    const { name, email, password, phone, type, address, minIncome, maxIncome, taxIdentificationNumber } = req.body;
 
     const business = await Business.findById(req.params.id).populate('address');
     if (!business) {
@@ -117,6 +120,7 @@ export const updateBusinessProfile = async (req, res) => {
     business.email = email;
     business.logo = logo;
     business.type = type;
+    business.phone = phone;
     business.address = address;
     business.minIncome = minIncome;
     business.maxIncome = maxIncome;

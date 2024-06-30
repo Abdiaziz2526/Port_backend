@@ -13,7 +13,10 @@ const businessEntitySchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  logo: { type: String },
+  phone: {
+    type: Number,
+    required: true
+  },
   type: {
     type: String,
     enum: ["Limited Liability Company (LLC)", "Sole Proprietorship", " Cooperative", "Non-Governmental Organizations (NGOs) and Non-Profits", " Corporation", " Partnership"],
