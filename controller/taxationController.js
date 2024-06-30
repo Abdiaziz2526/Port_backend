@@ -3,12 +3,13 @@ import Taxation from '../models/taxationModel.js';
 
 export const createTaxtion = async (req, res) => {
     try {
-        const { business, user, product, taxAmount } = req.body;
+        const { business, user, product, taxAmount,paymentDate } = req.body;
         const newTaxtion = new Taxation({
             business,
             user,
             product,
-            taxAmount
+            taxAmount,
+            paymentDate: new Date(paymentDate)
         });
 
         const savedTaxtion = await newTaxtion.save();
@@ -21,7 +22,7 @@ export const createTaxtion = async (req, res) => {
 
 export const getAllTaxtion = async (req, res) => {
     try {
-        const taxtions = await Taxation.find().populate("user").populate("business").populate('products');
+        const taxtions = await Taxation.find().populate("user").populate("business").populate('product');
         res.status(200).json(taxtions);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -55,11 +56,11 @@ export const getTaxtionById = async (req, res) => {
 export const updateTaxtionById = async (req, res) => {
     try {
         const { id } = req.params;
-        const { business, user, product, taxAmount } = req.body;
+        const { business, user, product, taxAmount, paymentDate } = req.body;
 
         const updateTaxtionById = await Taxation.findByIdAndUpdate(
             id,
-            { business, user, product, taxAmount },
+            { business, user, product, taxAmount,paymentDate: new Date(paymentDate) },
             { new: true }
         );
 
