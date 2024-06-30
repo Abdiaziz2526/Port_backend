@@ -2,10 +2,8 @@ import mongoose from "mongoose";
 
 
 const addressSchema = new mongoose.Schema({
-  street: String,
   city: String,
   state: String,
-  zip: String,
   country: { type: String, default: 'Somalia' },
 }, { _id: false });
 
