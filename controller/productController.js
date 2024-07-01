@@ -42,8 +42,8 @@ export const getProductById = async (req, res) => {
 // Register a new product
 export const registerNewProduct = async (req, res) => {
     try {
-        const { name, qty, price, totalPrice, user } = req.body;
-        const product = new Products({ name, qty, price, totalPrice, user });
+        const { name, qty, price, totalPrice, business } = req.body;
+        const product = new Products({ name, qty, price, totalPrice, business });
 
         await product.save();
         res.status(201).json(product);
