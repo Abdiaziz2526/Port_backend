@@ -58,15 +58,21 @@ export const registerNewProduct = async (req, res) => {
 export const updateProduct = async (req, res) => {
     try {
         const { name, qty, price, totalPrice } = req.body;
-        const updatedProduct = await Products.findByIdAndUpdate(
-            req.params.id,
-            { name, qty, price, totalPrice },
-            { new: true }
-        );
-        if (!updatedProduct) {
+        const updatedProduct = await Products.findById(req.params.id);
+
+        if (updatedProduct) {
+            updatedProduct.name = name;
+            updatedProduct.qty = qty;
+            updatedProduct.price = price;
+            updatedProduct.totalPrice = totalPrice;
+
+            await updatedProduct.save()
+            res.status(200).json(updatedProduct);
+           
+        }else{
             return res.status(404).json({ message: 'Product not found' });
         }
-        res.status(200).json(updatedProduct);
+        
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
