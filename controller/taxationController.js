@@ -4,16 +4,24 @@ import Taxation from '../models/taxationModel.js';
 export const createTaxtion = async (req, res) => {
     try {
         const { business, user, product, taxAmount,paymentDate } = req.body;
-        const newTaxtion = new Taxation({
-            business,
-            user,
-            product,
-            taxAmount,
-            paymentDate: new Date(paymentDate)
-        });
-
-        const savedTaxtion = await newTaxtion.save();
+        
+        const taxtions = await Taxation.find({product:req.params.id})
+        if (!taxtions) {
+            const newTaxtion = new Taxation({
+                business,
+                user,
+                product,
+                taxAmount,
+                paymentDate: new Date(paymentDate)
+            });
+            const savedTaxtion = await newTaxtion.save();
         res.status(201).json(savedTaxtion);
+        }
+        else{
+            res.status(400).json({message: "This product already taxed"});
+        }
+
+        
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
