@@ -5,11 +5,11 @@ import { admin, protect } from '../middleware/authMiddleware.js';
 const router = express.Router();
 router.route('/')
   .get(getProducts)
-  .post(protect, registerNewProduct);
-  router.route('/my/products/:id').get(protect, getMyProducts)
+  .post(registerNewProduct);
+  router.route('/my/products/:id').get(getMyProducts)
 router.route('/:id')
   .get(getProductById)
-  .put(protect, updateProduct)
+  .put(updateProduct)
   .delete(protect, admin,deleteProduct);
 
 export default router;

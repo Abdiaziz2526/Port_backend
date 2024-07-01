@@ -6,7 +6,7 @@ const router = express.Router();
 router.route('/')
   .get(protect, getAllBusiness)
   .post(registerNewBusiness);
-router.route('/:id/:token').get(protect, getBusinessById)
+router.route('/:id/:token').get(getBusinessById)
 router.route('/:id')
   .put(protect, updateBusinessProfile)
   .delete(protect, deleteBusiness);
