@@ -5,7 +5,7 @@ export const createTaxtion = async (req, res) => {
     try {
         const { business, user, product, taxAmount, paymentDate } = req.body;
 
-        const taxtions = await Taxation.find({ product: req.params.id })
+        const taxtions = await Taxation.findOne({ product: product })
         if (!taxtions) {
             const newTaxtion = new Taxation({
                 business,
