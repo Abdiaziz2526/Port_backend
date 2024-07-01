@@ -13,7 +13,7 @@ export const getProducts = async (req, res) => {
 // Get all product
 export const getMyProducts = async (req, res) => {
     try {
-        const products = await Products.findOne({ business: req.params.id }).populate('business');
+        const products = await Products.find({ business: req.params.id }).populate('business');
 
         if (products) {
             return res.status(200).json(products);
