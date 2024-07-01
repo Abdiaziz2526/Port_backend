@@ -78,6 +78,47 @@ export const updateProduct = async (req, res) => {
     }
 };
 
+// Update product To Taxed
+export const updateToTaxedProduct = async (req, res) => {
+    try {
+        const { isTaxed } = req.body;
+        const updatedProduct = await Products.findById(req.params.id);
+
+        if (updatedProduct) {
+            updatedProduct.isTaxed = isTaxed;
+            await updatedProduct.save()
+            res.status(200).json(updatedProduct);
+           
+        }else{
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+// Update product To Paid
+export const updateToPaidProduct = async (req, res) => {
+    try {
+        const { isPaid } = req.body;
+        const updatedProduct = await Products.findById(req.params.id);
+
+        if (updatedProduct) {
+            updatedProduct.isPaid = isPaid;
+            await updatedProduct.save()
+            res.status(200).json(updatedProduct);
+           
+        }else{
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // Delete a product
 export const deleteProduct = async (req, res) => {
     try {

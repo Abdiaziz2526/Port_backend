@@ -32,7 +32,7 @@ export const getAllTaxtion = async (req, res) => {
 
 export const getMyTaxtion = async (req, res) => {
     try {
-        const taxtions = await Taxation.findOne({user:req.params.id}).populate("user").populate("business").populate('products');;
+        const taxtions = await Taxation.find({user:req.params.id}).populate("user").populate("business").populate('products');;
         res.status(200).json(taxtions);
     } catch (error) {
         res.status(500).json({ error: error.message });
