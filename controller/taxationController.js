@@ -1,11 +1,11 @@
-import Taxation from '../models/taxationModel.js'; 
+import Taxation from '../models/taxationModel.js';
 
 
 export const createTaxtion = async (req, res) => {
     try {
-        const { business, user, product, taxAmount,paymentDate } = req.body;
-        
-        const taxtions = await Taxation.find({product:req.params.id})
+        const { business, user, product, taxAmount, paymentDate } = req.body;
+
+        const taxtions = await Taxation.find({ product: req.params.id })
         if (!taxtions) {
             const newTaxtion = new Taxation({
                 business,
@@ -15,13 +15,13 @@ export const createTaxtion = async (req, res) => {
                 paymentDate: new Date(paymentDate)
             });
             const savedTaxtion = await newTaxtion.save();
-        res.status(201).json(savedTaxtion);
+            res.status(201).json(savedTaxtion);
         }
-        else{
-            res.status(400).json({message: "This product already taxed"});
+        else {
+            res.status(400).json({ message: "This product already taxed" });
         }
 
-        
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -40,7 +40,7 @@ export const getAllTaxtion = async (req, res) => {
 
 export const getMyTaxtion = async (req, res) => {
     try {
-        const taxtions = await Taxation.find({user:req.params.id}).populate("user").populate("business").populate('products');;
+        const taxtions = await Taxation.find({ business: req.params.id }).populate("user").populate("business").populate('products');;
         res.status(200).json(taxtions);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -68,7 +68,7 @@ export const updateTaxtionById = async (req, res) => {
 
         const updateTaxtionById = await Taxation.findByIdAndUpdate(
             id,
-            { business, user, product, taxAmount,paymentDate: new Date(paymentDate) },
+            { business, user, product, taxAmount, paymentDate: new Date(paymentDate) },
             { new: true }
         );
 
@@ -89,12 +89,12 @@ export const deleteTaxtionById = async (req, res) => {
 
         if (taxation) {
             res.status(200).json({ message: 'Taxation deleted successfully' });
-            
-        }else{
+
+        } else {
             res.status(404).json({ message: 'Taxtion not found' });
         }
 
-        
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

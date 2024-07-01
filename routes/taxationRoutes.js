@@ -7,7 +7,6 @@ router.route('/')
   .get(getAllTaxtion)
   .post(createTaxtion);
 router.route('/my/taxation/:id').get(getMyTaxtion)
-router.route('/temp/test/').delete(deleteTaxtionById)
 router.route('/:id')
   .get(getTaxtionById)
   .put(updateTaxtionById)
