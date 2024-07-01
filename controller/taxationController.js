@@ -77,14 +77,16 @@ export const updateTaxtionById = async (req, res) => {
 
 export const deleteTaxtionById = async (req, res) => {
     try {
-        const { id } = req.params;
-        const deletedTaxtion = await Taxation.findByIdAndDelete(id);
+        const taxation = await Taxation.findByIdAndUpdate(req.params.id);
 
-        if (!deletedTaxtion) {
-            return res.status(404).json({ message: 'Taxtion not found' });
+        if (taxation) {
+            res.status(200).json({ message: 'Taxation deleted successfully' });
+            
+        }else{
+            res.status(404).json({ message: 'Taxtion not found' });
         }
 
-        res.status(200).json({ message: 'Taxtion deleted successfully' });
+        
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
