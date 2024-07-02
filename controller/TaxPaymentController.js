@@ -39,8 +39,8 @@ export const getTaxPaymentById = async (req, res) => {
 // Create a new tax payment
 export const addNewTaxPayment = async (req, res) => {
   try {
-    const { business, amount, paymentDate, paymentMethod, transactionId, isPaid } = req.body; 
-    const newTaxPayment = new TaxPayment({ business, amount, paymentDate, paymentMethod, transactionId, isPaid }); 
+    const { business,product, amount, paymentDate, paymentMethod, transaction, isPaid } = req.body; 
+    const newTaxPayment = new TaxPayment({ business,product, amount, paymentDate, paymentMethod, transaction, isPaid }); 
 
 
     await newTaxPayment.save();
