@@ -24,7 +24,7 @@ const taxPaymentSchema = new mongoose.Schema({
     required: true,
   },
   transaction: {
-    type: Number,
+    type: String,
     required: true,
   },
   isPaid: {
