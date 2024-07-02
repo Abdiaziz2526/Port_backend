@@ -6,7 +6,6 @@ import productsRoutes from './routes/productsRoutes.js';
 import taxationRoutes from './routes/taxationRoutes.js';
 import taxrateRoutes from './routes/taxrateRoute.js'
 import taxPaymentRoutes from './routes/taxPaymentRoutes.js'
-
 import dotenv from 'dotenv';
 
 dotenv.config();
