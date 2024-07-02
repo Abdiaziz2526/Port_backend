@@ -24,7 +24,11 @@ const businessEntitySchema = new mongoose.Schema({
   minIncome: { type: Number, required: true },
   maxIncome: { type: Number, required: true },
   taxIdentificationNumber: { type: String, required: true, unique: true },
-});
+},
+  {
+    timestamps: true,
+  },
+);
 
 const Business = mongoose.model("business", businessEntitySchema);
 
