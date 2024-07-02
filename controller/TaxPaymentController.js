@@ -1,4 +1,4 @@
-import TaxPayment from '../models/taxPaymentModel.js';
+import TaxPayment from '../models/taxPaymentsModel.js';
 
 
 export const getAllTaxPayments = async (req, res) => {
