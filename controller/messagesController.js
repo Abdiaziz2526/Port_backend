@@ -3,7 +3,7 @@ import Messages from '../models/messagesModel.js';
 // Get all messages rates
 export const getAllMessages = async (req, res) => {
     try {
-        const messages = await Messages.find();
+        const messages = await Messages.find().populate("sender");
         res.status(200).json(messages);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -14,7 +14,7 @@ export const getAllMessages = async (req, res) => {
 export const getMessagesById = async (req, res) => {
     const { id } = req.params;
     try {
-        const messages = await Messages.findById(id);
+        const messages = await Messages.findById(id).populate("sender");
         if (!messages) {
             return res.status(404).json({ message: 'Message not found' });
         }
