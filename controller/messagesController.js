@@ -37,8 +37,8 @@ export const getMessagesById = async (req, res) => {
 
 // Register a new messages
 export const registerNewMessages = async (req, res) => {
-    const { sender, receiver, message } = req.body;
-    const newMessages = new Messages({ sender, receiver, message });
+    const { sender,business, receiver, message } = req.body;
+    const newMessages = new Messages({ sender,business, receiver, message });
     try {
         await newMessages.save();
         res.status(201).json(newMessages);
@@ -50,11 +50,11 @@ export const registerNewMessages = async (req, res) => {
 // Update an existing messages
 export const updateMessage = async (req, res) => {
     const { id } = req.params;
-    const { sender, receiver, message } = req.body;
+    const { sender, business, receiver, message } = req.body;
     try {
         const updatedMessages = await Messages.findByIdAndUpdate(
             id,
-            { sender, receiver, message },
+            { sender,business, receiver, message },
             { new: true }
         );
         if (!updatedMessages) {
