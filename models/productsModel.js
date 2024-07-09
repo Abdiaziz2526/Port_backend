@@ -20,18 +20,18 @@ const productSchema = mongoose.Schema({
     isTaxed: {
         type: Boolean,
         required: true,
-        default:false,
+        default: false,
     },
     isPaid: {
         type: Boolean,
         required: true,
-        default:false
+        default: false
     },
     business: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "business",
         required: true,
-      },
+    },
 });
 
 const Products = mongoose.model("products", productSchema);
